@@ -11,3 +11,5 @@
 /gwt-unitCache
 /WebContent/unitime
 /WebContent/WEB-INF/deploy
+static_analysis_report.html 
+static_analysis_report_java.html 
