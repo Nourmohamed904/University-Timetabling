@@ -1,0 +1,13 @@
+diff --git a/JavaSource/org/unitime/commons/Debug.java b/JavaSource/org/unitime/commons/Debug.java
+index 1a79a3f..0cdaa89 100644
+--- a/JavaSource/org/unitime/commons/Debug.java
++++ b/JavaSource/org/unitime/commons/Debug.java
+@@ -132,7 +132,7 @@
+ 		 * @param source a class
+ 		 * @return class name (without package)
+ 		 */
+-		public static synchronized String getSource(Class source) {
++		public static synchronized String getSource(Class<?> source) {
+ 			String name = source.getName();
+ 
+ 		if (name != null && name.indexOf('.') >= 0) {
