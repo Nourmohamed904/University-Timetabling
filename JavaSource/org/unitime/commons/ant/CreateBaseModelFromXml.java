@@ -1052,7 +1052,7 @@ public class CreateBaseModelFromXml extends Task {
 					pw.print(mainHeader.toString());
 					classLine = true;
 				}
-				if (line.matches("[\t ]*(public|private|protected)[\t ]*[a-zA-Z<>\\., _\\[\\]\\?]+[\t ]+(get|is)[A-Za-z0-9_]+\\(\\).*") && !"	@Transient".equals(prev)) {
+				if (line.matches("[\t ]*(public|private|protected)[\t ]*[a-zA-Z<>\\., _\\[\\]\\?]+[\t ]+(get|is)\\w+\\(\\).") && !"	@Transient".equals(prev)) {
 					pw.println("	@Transient");
 				}
 				pw.println(line);
