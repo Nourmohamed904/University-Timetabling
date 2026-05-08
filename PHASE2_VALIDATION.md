@@ -4,7 +4,7 @@ This document describes how each of the implemented SonarQube‑reported changes
 
 ---
 
-## Change 1 – Remove commented‑out code block in InstructionalOffering.hbm.xml (Jira: UT‑5)
+## Change 1 – Remove commented‑out code block in InstructionalOffering.hbm.xml (Jira: UT‑7)
 
 **SonarQube rule:** `xml:S125` – Sections of code should not be commented out.
 
@@ -34,44 +34,16 @@ Deleted the entire commented‑out `<set>` block for `creditConfigs` (the legacy
 
 ---
 
-## Change 2 – Replace `[A-Za-z0-9_]` with `\w` in regular expressions (Jira: UT‑9)
-
-**SonarQube rule:** `java:S6353` – Regular expression quantifiers and character classes should be used concisely.
+## Change 2 – Parameterize raw `Class` type in Debug.java (UT‑10)
 
 ### What was done
-In `CreateBaseModelFromXml.java` (two locations):
-- Replaced the verbose character class `[A-Za-z0-9_]` with the standard shorthand `\w`.
-- Additionally corrected a missing quantifier: `.` was changed to `.*` after `\\(\\)` to properly match any trailing characters (not just one).
+Changed `Class source` to `Class<?> source` in the method `getSource()` of `Debug.java`.
 
 ### Verification steps
-1. **Syntax correctness**  
-   The file compiles without errors in IntelliJ IDEA.  
-   Both affected lines have no red underlines or syntax warnings.
-
-2. **Pattern equivalence**  
-   According to the Java documentation (`java.util.regex.Pattern`), `\w` is officially equivalent to `[A-Za-z0-9_]`.  
-   Therefore the regex behaviour is unchanged by substituting `\w` for the character class.
-
-3. **Static analysis re‑check**  
-   SonarLint no longer reports `java:S6353` for `CreateBaseModelFromXml.java`.
-
-4. **Build attempt**  
-   The file compiles successfully (together with the rest of the project, apart from pre‑existing issues).  
-   No new compilation errors were introduced.
-
-5. **Quantifier correction**  
-   The old regex used a single dot `.` to match characters after the closing parenthesis; this would fail on most real method lines.  
-   The change to `.*` makes the regex correctly match any remaining characters on the line – a clear improvement that also aligns with the original intent visible on the adjacent line (`readLine.matches(...)`).  
+1. **Syntax check** – The file compiles without errors in IntelliJ.
+2. **Static analysis re‑check** – SonarLint no longer reports java:S3740 for Debug.java.
+3. **Build attempt** – No new compilation errors introduced.
 
 ### Evidence
-- Git diff output: see `diff-regex.txt` (shows both line replacements)
-- SonarLint / Inspection results after change: no `java:S6353` for this file
+- Git diff (see `diff-rawtype.txt`) – shows the single line change.
 
----
-
-## Summary
-
-Both changes:
-- resolve the exact SonarQube warnings they were meant to fix.
-- have been verified via code inspection, static analysis re‑checks, and compilation tests.
-- are documented with Git diffs and SonarLint before/after observations.
