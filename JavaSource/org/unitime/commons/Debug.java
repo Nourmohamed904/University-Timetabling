@@ -132,7 +132,7 @@
 		 * @param source a class
 		 * @return class name (without package)
 		 */
-		public static synchronized String getSource(Class source) {
+		public static synchronized String getSource(Class<?> source) {
 			String name = source.getName();
 
 		if (name != null && name.indexOf('.') >= 0) {
