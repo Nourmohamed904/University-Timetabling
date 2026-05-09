@@ -76,7 +76,7 @@ public class MultiComparable implements Comparable<MultiComparable>{
             }
             if (mc.iCmp[i]==null) return 1;
             int cmp = 0;
-            if (iCmp[i]!=null && iCmp[i] instanceof String && mc.iCmp[i]!=null && mc.iCmp[i] instanceof String)
+            if (iCmp[i] instanceof String && mc.iCmp[i] instanceof String)
                 cmp = iStringCmp.compare(iCmp[i], mc.iCmp[i]);
             else
                 cmp = iCmp[i].compareTo(mc.iCmp[i]);
